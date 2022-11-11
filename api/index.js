@@ -21,9 +21,9 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 // Connect to Mongoose and set connection variable
 // MongoDB LocalHost
-database = 'mongodb://127.0.0.1/resthub'
+// database = 'mongodb://127.0.0.1/resthub'
 // MongoDB Atlas
-// database = 'mongodb+srv://kashing555:OTOT-B@cluster0.nylcpkf.mongodb.net/test'
+database = 'mongodb+srv://kashing555:OTOT-B@cluster0.nylcpkf.mongodb.net/test'
 mongoose.connect(database, 
     {
         useNewUrlParser: true,
