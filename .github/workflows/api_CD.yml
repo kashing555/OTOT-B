@@ -24,7 +24,7 @@ jobs:
     - name: rename main js
       run: |
         cd api
-        mv build/static/js/main.*.*.js build/static/js/main.js
+        mv build/static/js/index.*.*.js build/static/js/index.js
       
     - name: Generate deployment package
       run: |
