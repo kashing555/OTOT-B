@@ -1,4 +1,4 @@
-name: React Charts Build
+name: api CD
 
 on:
   push:
@@ -9,28 +9,39 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [12.x]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v2
 
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
       
     - name: Generate deployment package
-      run: |
-          cd api
-          zip -r deploy.zip * . -x "**node_modules**"
+      run: zip -r deploy.zip * -x "**node_modules**"
+
+    - name: Get timestamp
+      uses: gerred/actions/current-time@master
+      id: current-time
+
+    - name: Run string replace
+      uses: frabert/replace-string-action@master
+      id: format-time
+      with:
+        pattern: '[:\.]+'
+        string: "${{ steps.current-time.outputs.time }}"
+        replace-with: '-'
+        flags: 'g'
 
     - name: Beanstalk Deploy for app
-      uses: einaregilsson/beanstalk-deploy@v30
+      uses: einaregilsson/beanstalk-deploy@v10
       with:
         aws_access_key: ${{secrets.AWS_ACCESS_KEY}}
         aws_secret_key: ${{secrets.AWS_SECRET_KEY}}
-        application_name: OTOT-B
-        environment_name: Ototb-env-1
+        application_name: "OTOT-B"
+        environment_name: "ototb-env"
         region: "ap-southeast-1"
         version_label: "react-demo-new-${{ steps.format-time.outputs.replaced }}"
         deployment_package: deploy.zip
