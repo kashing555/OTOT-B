@@ -19,5 +19,5 @@ router.route('/contacts/:email_address')
     .patch(contactController.update)
     .put(contactController.update)
     .delete(contactController.delete);
-// Export API routes
+// Export API route
 module.exports = router;
