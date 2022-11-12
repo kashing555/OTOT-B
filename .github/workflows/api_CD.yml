@@ -40,7 +40,7 @@ jobs:
         environment_name: "ototb-env"
         region: "ap-southeast-1"
         version_label: "react-demo-new-${{ steps.format-time.outputs.replaced }}"
-        deployment_package: deploy.zip
+        deployment_package: ./api/deploy.zip
 
     - name: Deployed!
       run: echo App deployed to ELB
