@@ -57,6 +57,7 @@ form.addEventListener("submit", e => {
       updateResponseDetails(response)
       updateResponseEditor(response.data.data)
       console.log(response)
+      console.log('redis')
     })
 })
 
